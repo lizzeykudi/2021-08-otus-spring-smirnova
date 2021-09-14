@@ -10,11 +10,9 @@ import java.io.InputStreamReader;
 public class Test {
     private Questions questions;
     private int score;
-    private int maxScore;
 
-    public Test(Questions questions) {
+    public void setQuestions(Questions questions) {
         this.questions = questions;
-        maxScore = questions.getQuestions().size();
     }
 
     public void test() {
@@ -35,6 +33,6 @@ public class Test {
                 score++;
             }
         }
-        System.out.println("Your score: " + score + "/" + maxScore);
+        System.out.println("Your score: " + score + "/" + questions.getQuestions().size());
     }
 }
