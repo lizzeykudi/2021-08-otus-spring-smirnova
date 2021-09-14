@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+    <bean id="questions" class="questions.Questions">
+        <property name="fileName" value="hw1/src/main/resources/Questions.csv"/>
+        <property name="csvFileReader">
+            <bean id="csvFileReader"
+                  class="util.CsvFileReader" />
+        </property>
+    </bean>
+
+
+
+<!--    <bean id="country" class="org.arpit.java2blog.model.Country">-->
+<!--        <constructor-arg index="0" value="India"></constructor-arg>-->
+<!--        <constructor-arg index="1" value="20000"></constructor-arg>-->
+<!--    </bean>-->
+    <context:annotation-config />
+</beans>
