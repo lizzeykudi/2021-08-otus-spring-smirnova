@@ -4,6 +4,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import ru.otus.spring.testApplication.Application;
 import ru.otus.spring.testApplication.TestApplication;
 
 @Configuration
@@ -12,8 +13,8 @@ import ru.otus.spring.testApplication.TestApplication;
 public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Main.class);
-        TestApplication testApplication = (TestApplication) context.getBean("testApplication");
-        testApplication.game();
+        Application application = (Application) context.getBean("testApplication");
+        application.start();
 
         context.close();
     }

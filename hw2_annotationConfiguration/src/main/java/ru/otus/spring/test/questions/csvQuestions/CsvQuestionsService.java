@@ -1,6 +1,7 @@
 package ru.otus.spring.test.questions.csvQuestions;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import ru.otus.spring.test.questions.questions.Question;
@@ -13,14 +14,13 @@ import java.util.List;
 @Component
 public class CsvQuestionsService implements QuestionsService {
 
-//    @Value("#{questionsFilePath}")
-    private final String fileName;
+    @Value("${questionsFilePath}")
+    private String fileName;
     private List<Question> questions;
     private final CsvFileReader csvFileReader;
 
     @Autowired
     public CsvQuestionsService(CsvFileReader csvFileReader, Environment environment) {
-        this.fileName = environment.getProperty("questionsFilePath");
         this.csvFileReader = csvFileReader;
     }
 
