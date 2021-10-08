@@ -25,13 +25,21 @@ public class QuestionsTestService implements TestService{
     @Override
     public int test() {
         for (Question question : questionsService.getQuestions()) {
-            String answer = consoleUtil.ask(question.toString() + "Enter your answer(number)");
-
-            if (question.isCorrectAnswer(question.getAnswers().get(Integer.parseInt(answer) - 1))) {
+            String answer = askQuestion(question);
+            while (answer==null) {
+                answer = askQuestion(question);
+            }
+            if (question.isCorrectAnswer(answer)) {
                 score++;
             }
         }
         return score;
+    }
+
+    private String askQuestion(Question question){
+        String answer = consoleUtil.ask(question.toString() + "Enter your answer(number)");
+        answer = question.getAnswer(Integer.parseInt(answer));
+        return answer;
     }
 
     @Override
