@@ -1,7 +1,5 @@
 package ru.otus.spring.test.test;
 
-package ru.otus.spring.test.test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.otus.spring.test.questions.questions.Question;
