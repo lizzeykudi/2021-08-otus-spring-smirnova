@@ -21,13 +21,6 @@ public class CsvQuestions implements Questions {
         }
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public void setCsvFileReader(CsvFileReader csvFileReader) {
-        this.csvFileReader = csvFileReader;
-    }
 
     @Override
     public List<Question> getQuestions() {
