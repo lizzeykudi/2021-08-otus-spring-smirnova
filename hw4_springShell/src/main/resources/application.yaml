@@ -1,0 +1,5 @@
+config:
+  locale: ru
+language:
+  ruQuestionsFilePath: hw3_springBoot/src/main/resources/QuestionsRU.csv
+  enQuestionsFilePath: hw3_springBoot/src/main/resources/Questions.csv

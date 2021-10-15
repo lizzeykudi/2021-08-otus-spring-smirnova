@@ -11,6 +11,7 @@ public class Test {
     private Questions questions;
     private int score;
 
+
     public void test() {
         for (Question question : questions.getQuestions()) {
             System.out.println(question.toString());
