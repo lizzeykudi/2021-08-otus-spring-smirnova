@@ -11,6 +11,11 @@ public class BookGenre {
         this.title = title;
     }
 
+    public BookGenre(long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public String getTitle() {
         return title;
     }

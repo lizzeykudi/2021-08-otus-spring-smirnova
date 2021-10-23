@@ -39,7 +39,7 @@ public class BookGenreDaoJdbc implements BookGenreDao {
     public BookGenre getById(long id) {
         SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("id", id);
-        String FETCH_SQL_BY_ID = "select * from book_genres where id = :id";
+        String FETCH_SQL_BY_ID = "select id,title from book_genres where id = :id";
         return (BookGenre) namedParameterJdbcTemplate.queryForObject(FETCH_SQL_BY_ID, parameters, new BookMapper());
     }
 

@@ -27,7 +27,7 @@ public class AuthorDaoJdbc implements AuthorDao {
         KeyHolder holder = new GeneratedKeyHolder();
         SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("name", author.getName());
-        String INSERT_SQL = "INSERT INTO AUTHORS(name)  values(:name)";
+        String INSERT_SQL = "INSERT INTO AUTHORS(name) values(:name)";
         namedParameterJdbcTemplate.update(INSERT_SQL, parameters, holder);
         author.setId(holder.getKey().intValue());
         return author;
@@ -37,7 +37,7 @@ public class AuthorDaoJdbc implements AuthorDao {
     public Author getById(long id) {
         SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("id", id);
-        String FETCH_SQL_BY_ID = "select * from authors where id = :id";
+        String FETCH_SQL_BY_ID = "select id,name from authors where id = :id";
         return (Author) namedParameterJdbcTemplate.queryForObject(FETCH_SQL_BY_ID, parameters, new AuthorMapper());
     }
 

@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 import ru.otus.spring.dao.AuthorDao;
 import ru.otus.spring.dao.BookDao;
 import ru.otus.spring.dao.BookGenreDao;
+import ru.otus.spring.domain.Author;
 import ru.otus.spring.domain.Book;
+import ru.otus.spring.domain.BookGenre;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,11 +49,18 @@ public class BookDaoJdbc implements BookDao {
     public Book getById(long id) {
         SqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("id", id);
-        String FETCH_SQL_BY_ID = "select * from books where id = :id";
+        String FETCH_SQL_BY_ID =
+                "select books.id," +
+                        "books.title," +
+                        "authors.id as author_id," +
+                        "authors.name as author_name," +
+                        "book_genres.id as book_genre_id," +
+                        "book_genres.title as book_genre_title" +
+                        " from books join authors on books.AUTHOR_ID=authors.id join book_genres on book_genres.id=books.book_genre_id where books.id = :id";
         try {
             return (Book) namedParameterJdbcTemplate.queryForObject(FETCH_SQL_BY_ID, parameters, new BookMapper());
         } catch (EmptyResultDataAccessException emptyResultDataAccessException) {
-            System.out.println("No book id "+id);
+            System.out.println("No book id " + id);
             throw emptyResultDataAccessException;
         }
     }
@@ -83,8 +92,8 @@ public class BookDaoJdbc implements BookDao {
             Book book = new Book();
             book.setId(rs.getInt("id"));
             book.setTitle(rs.getString("title"));
-            book.setAuthor(authorDao.getById(rs.getInt("author_id")));
-            book.setBookGenre(bookGenreDao.getById(rs.getInt("book_genre_id")));
+            book.setAuthor(new Author(rs.getInt("author_id"), rs.getString("author_name")));
+            book.setBookGenre(new BookGenre(rs.getInt("book_genre_id"), rs.getString("book_genre_title")));
             return book;
         }
 
