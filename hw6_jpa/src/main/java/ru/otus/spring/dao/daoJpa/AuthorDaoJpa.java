@@ -1,16 +1,14 @@
-package ru.otus.spring.dao.daoJdbc;
+package ru.otus.spring.dao.daoJpa;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 import ru.otus.spring.dao.AuthorDao;
 import ru.otus.spring.domain.Author;
-import ru.otus.spring.domain.Book;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Optional;
 
-@Repository
+@Service
 public class AuthorDaoJpa implements AuthorDao {
 
     @PersistenceContext
@@ -21,18 +19,12 @@ public class AuthorDaoJpa implements AuthorDao {
     }
 
     @Override
-    @Transactional
     public Author insert(Author author) {
-        if (author.getId() == 0) {
-            entityManager.persist(author);
-            return author;
-        } else {
-            return entityManager.merge(author);
-        }
+        entityManager.persist(author);
+        return author;
     }
 
     @Override
-    @Transactional
     public Optional<Author> getById(long id) {
         return Optional.ofNullable(entityManager.find(Author.class, id));
     }

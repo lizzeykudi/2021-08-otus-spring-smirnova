@@ -1,7 +1,6 @@
-package ru.otus.spring.dao.daoJdbc;
+package ru.otus.spring.dao.daoJpa;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 import ru.otus.spring.dao.CommentDao;
 import ru.otus.spring.domain.Comment;
 
@@ -9,8 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Optional;
 
-@Repository
-@Transactional
+@Service
 public class CommentDaoJpa implements CommentDao {
 
     @PersistenceContext
@@ -22,12 +20,8 @@ public class CommentDaoJpa implements CommentDao {
 
     @Override
     public Comment insert(Comment comment) {
-        if (comment.getId() == 0) {
-            entityManager.persist(comment);
-            return comment;
-        } else {
-            return entityManager.merge(comment);
-        }
+        entityManager.persist(comment);
+        return comment;
     }
 
     @Override

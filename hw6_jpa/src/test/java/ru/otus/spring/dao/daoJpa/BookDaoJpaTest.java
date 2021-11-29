@@ -1,4 +1,4 @@
-package ru.otus.spring.dao.daoJdbc;
+package ru.otus.spring.dao.daoJpa;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import ru.otus.spring.domain.BookGenre;
 
 import java.util.NoSuchElementException;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.*;
 
 @DataJpaTest
