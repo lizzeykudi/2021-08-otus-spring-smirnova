@@ -2,6 +2,7 @@ package ru.otus.spring.bookService;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.dao.AuthorDao;
 import ru.otus.spring.dao.BookDao;
 import ru.otus.spring.dao.BookGenreDao;
@@ -9,7 +10,6 @@ import ru.otus.spring.dao.CommentDao;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.Comment;
 
-import javax.transaction.Transactional;
 import java.util.NoSuchElementException;
 
 @Service
@@ -59,14 +59,14 @@ public class DefaultCommentService implements CommentService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public String getComment(int id) {
         return commentDao.getById(id).orElseThrow(() -> new NoSuchElementException("No such comment with commentId " + id)).toString();
     }
 
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public String getCommentsByBookId(int bookId) {
         return bookDao.getById(bookId).orElseThrow(() -> new NoSuchElementException("No such book with bookId " + bookId)).getComments().toString();
     }

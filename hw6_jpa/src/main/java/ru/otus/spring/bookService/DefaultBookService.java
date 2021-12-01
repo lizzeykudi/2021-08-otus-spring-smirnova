@@ -2,6 +2,7 @@ package ru.otus.spring.bookService;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.otus.spring.dao.AuthorDao;
 import ru.otus.spring.dao.BookDao;
 import ru.otus.spring.dao.BookGenreDao;
@@ -10,7 +11,6 @@ import ru.otus.spring.domain.Author;
 import ru.otus.spring.domain.Book;
 import ru.otus.spring.domain.BookGenre;
 
-import javax.transaction.Transactional;
 import java.util.NoSuchElementException;
 
 @Service
@@ -39,7 +39,7 @@ public class DefaultBookService implements BookService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public String getById(int id) {
         return bookDao.getById(id).orElseThrow(() -> new NoSuchElementException("No such book with bookId " + id)).toString();
     }
