@@ -31,7 +31,6 @@ public class DefaultBookService implements BookService {
     }
 
     @Override
-    @Transactional
     public String insert(String bookTitle, String bookAuthor, String bookGenreName) {
         Author author = new Author(bookAuthor);
         BookGenre bookGenre = new BookGenre(bookGenreName);
