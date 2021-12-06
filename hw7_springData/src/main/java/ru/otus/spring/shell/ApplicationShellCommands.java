@@ -1,32 +1,17 @@
 package ru.otus.spring.shell;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import ru.otus.spring.bookService.BookService;
 import ru.otus.spring.bookService.CommentService;
-import ru.otus.spring.repository.AuthorRepository;
-import ru.otus.spring.repository.BookGenreRepository;
-import ru.otus.spring.repository.BookRepository;
-import ru.otus.spring.repository.CommentRepository;
 
 @ShellComponent
 public class ApplicationShellCommands {
 
-    ApplicationContext context;
-    BookRepository bookRepository;
-    AuthorRepository authorRepository;
-    BookGenreRepository bookGenreRepository;
-    CommentRepository commentRepository;
-    BookService bookService;
-    CommentService commentService;
+    private final BookService bookService;
+    private final CommentService commentService;
 
-    public ApplicationShellCommands(ApplicationContext context, BookRepository bookRepository, AuthorRepository authorRepository, BookGenreRepository bookGenreRepository, CommentRepository commentRepository, BookService bookService, CommentService commentService) {
-        this.context = context;
-        this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
-        this.bookGenreRepository = bookGenreRepository;
-        this.commentRepository = commentRepository;
+    public ApplicationShellCommands(BookService bookService, CommentService commentService) {
         this.bookService = bookService;
         this.commentService = commentService;
     }
