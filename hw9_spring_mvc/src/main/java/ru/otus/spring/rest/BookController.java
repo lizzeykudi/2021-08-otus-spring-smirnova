@@ -26,9 +26,7 @@ public class BookController {
 
     @GetMapping("/")
     public String listPage(Model model) {
-//        List<Person> persons = repository.findAll();
         List<Book> books = bookService.findAll();
-//        model.addAttribute("persons", persons);
         model.addAttribute("books", books);
         return "books";
     }
@@ -36,7 +34,6 @@ public class BookController {
     @GetMapping("/editBook")
     public String editBook(@RequestParam("id") int id, Model model) {
         Book book = bookService.getById(id).orElseThrow(() -> new NoSuchElementException("No such book with bookId " + id));
-//        Person person = repository.findById(id).orElseThrow(NotFoundException::new);
         model.addAttribute("book", book);
         return "editBook";
     }
@@ -44,17 +41,12 @@ public class BookController {
     @GetMapping("/delete")
     public String deletePage(@RequestParam("id") int id, Model model) {
         bookService.delete(id);
-//        Book book = bookService.getById(id).orElseThrow(() -> new NoSuchElementException("No such book with bookId " + id));
-//        Person person = repository.findById(id).orElseThrow(NotFoundException::new);
-//        model.addAttribute("book", book);
-        return "redirect:/";
+       return "redirect:/";
     }
 
     @GetMapping("/add")
     public String addPage(Model model) {
-//        Book book = bookService.getById(id).orElseThrow(() -> new NoSuchElementException("No such book with bookId " + id));
-//        Person person = repository.findById(id).orElseThrow(NotFoundException::new);
-        Book book = new Book();
+      Book book = new Book();
         book.setAuthor(new Author());
         book.setBookGenre(new BookGenre());
         model.addAttribute("book", book);
@@ -62,17 +54,14 @@ public class BookController {
     }
 
     @PostMapping("/editBook")
-    public String savePerson(
+    public String saveBook(
             Book book,
             Author author,
             String bookAuthorName,
             Model model
     ) {
-        System.out.println(book);
         Book savedBook = bookService.update(book).orElseThrow(() -> new NoSuchElementException("No such book with bookId " + book.getId()));
-//        Person saved = repository.save(person);
         model.addAttribute(savedBook);
-        //Ошибка! Нужен редирект!
         return "redirect:/";
     }
 }

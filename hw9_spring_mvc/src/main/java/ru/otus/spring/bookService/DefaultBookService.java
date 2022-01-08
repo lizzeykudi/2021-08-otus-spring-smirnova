@@ -47,11 +47,7 @@ public class DefaultBookService implements BookService {
     @Override
     @Transactional
     public Optional<Book> update(Book book) {
-//        Book book = bookRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No such book with bookId " + id));
-//        book.setTitle(bookTitle);
-//        book.setAuthor(authorRepository.findById(bookAuthorId).orElseThrow(() -> new NoSuchElementException("No such author with bookId " + bookAuthorId)));
-//        book.setBookGenre(bookGenreRepository.findById(bookGenreNameId).orElseThrow(() -> new NoSuchElementException("No such bookGenre with bookId " + bookGenreNameId)));
-        bookRepository.save(book);
+       bookRepository.save(book);
         return bookRepository.findById(book.getId());
     }
 

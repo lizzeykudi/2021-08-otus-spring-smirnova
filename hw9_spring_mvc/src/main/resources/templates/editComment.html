@@ -25,7 +25,7 @@
 <body>
 <p><a href="/">Return to list of comments</a></p>
 <!-- comment edition -->
-<form id="edit-form" th:action="@{/edit(id=${comment.id})}" th:method="post" action="editComment.html">
+<form id="edit-form" th:action="@{/editComment(id=${comment.id},bookId=${bookId})}" th:method="post" action="editComment.html">
     <h1>comment Info:</h1>
 
     <div class="row">
@@ -34,8 +34,8 @@
     </div>
 
     <div class="row">
-        <label for="holder-input">Title:</label>
-        <input id="holder-input" name="title" type="text" th:value="${comment.text}"/>
+        <label for="holder-input">Text:</label>
+        <input id="holder-input" name="text" type="text" th:value="${comment.text}"/>
     </div>
 
     <div class="row">

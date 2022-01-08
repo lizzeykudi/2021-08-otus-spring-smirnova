@@ -13,7 +13,7 @@ public interface CommentService {
 
     Optional<Comment> updateComment(Comment comment);
 
-    String getComment(long id);
+    Optional<Comment> getComment(long id);
 
     List<Comment> findAll(long bookId);
 }

@@ -45,21 +45,19 @@ public class DefaultCommentService implements CommentService {
     @Override
     @Transactional
     public Optional<Comment> updateComment(Comment comment) {
-//        Comment comment = commentRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No such comment with commentId " + id));
-//        comment.setText(text);
-        commentRepository.save(comment);
+    commentRepository.save(comment);
         return commentRepository.findById(comment.getId());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public String getComment(long id) {
-        return commentRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No such comment with commentId " + id)).toString();
+    public Optional<Comment> getComment(long id) {
+        return commentRepository.findById(id);
     }
 
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public List<Comment> findAll(long bookId) {
         return bookRepository.findById(bookId).orElseThrow(() -> new NoSuchElementException("No such book with bookId " + bookId)).getComments();
     }
