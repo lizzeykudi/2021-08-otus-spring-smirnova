@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Edit book</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input:read-only {
+            background: lightgray;
+        }
+
+        .row {
+            margin-top: 10px;
+        }
+
+        select, input {
+             width:160px;
+             box-sizing:border-box;
+        }
+    </style>
+</head>
+<body>
+<p><a href="/"><Return></Return> to list of books</a></p>
+<!-- book edition -->
+<form id="edit-form" th:action="@{/editBook(id=${book.id})}" th:method="post" action="editBook.html">
+    <h1>book Info:</h1>
+
+    <div class="row">
+        <label for="id-input">ID:</label>
+        <input id="id-input" type="text" readonly="readonly" th:value="${book.id}" value="1"/>
+    </div>
+
+    <div class="row">
+        <label for="holder-input">Title:</label>
+        <input id="holder-input" name="title" type="text" th:value="${book.title}"/>
+    </div>
+
+    <div class="row">
+        <label for="holder-input">Author:</label>
+                <select class="form-control" name="author">
+                    <option th:each="author : ${authors}"
+                            th:selected="${book.author.id == author.id}"
+                            th:value="${author.id}"
+                            th:text="${author.name}"></option>
+                </select>
+    </div>
+
+    <div class="row">
+        <label for="holder-input">BookGenre:</label>
+        <select class="form-control" name="bookGenre">
+            <option th:each="bookGenre : ${bookGenres}"
+                    th:selected="${book.bookGenre.id == bookGenre.id}"
+                    th:value="${bookGenre.id}"
+                    th:text="${bookGenre.title}"></option>
+        </select>
+    </div>
+
+    <div class="row">
+        <button type="submit">Save</button>
+    </div>
+</form>
+
+</body>
+</html>

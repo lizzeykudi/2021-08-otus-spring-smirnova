@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>List of all comments</title>
+    <style type="text/css">
+        body {
+            padding: 50px;
+        }
+
+        .comments, .comments td {
+            border: 1px solid lightgray;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<p><a th:href="@{/addComment(bookId=${bookId})}" href="edit.html">Add a new comment</a></p>
+<h1>comments:</h1>
+
+<table class="comments">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Text</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="comment : ${comments}">
+<!--        <td th:text="${comment.id}"></td>-->
+        <td th:text="${comment.id}"></td>
+        <td th:text="${comment.text}"></td>
+        <td>
+            <a th:href="@{/editComment(id=${comment.id},bookId=${bookId})}" href="editComment.html">Edit</a> <a th:href="@{/deleteComment(id=${comment.id},bookId=${bookId})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
