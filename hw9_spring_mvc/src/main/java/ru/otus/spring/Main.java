@@ -15,10 +15,11 @@ public class Main {
     }
 
     @Autowired
-    private BookService  bookService;
+    private BookService bookService;
 
     @PostConstruct
     public void init() {
-        bookService.insert("12","13","14");
+        bookService.insert("Thinking in Java", "Bruce Eckel", "Java");
+        bookService.insert("Spring in Action", "Craig Walls", "Spring");
     }
 }
