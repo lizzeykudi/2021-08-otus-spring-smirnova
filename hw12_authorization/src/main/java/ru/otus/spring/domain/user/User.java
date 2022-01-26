@@ -14,9 +14,10 @@ import java.util.List;
 @Table(name = "users")
 public class User {
 
-    public User(String username, String password) {
+    public User(String username, String password, List<Role> roles) {
         this.username = username;
         this.password = password;
+        this.roles = roles;
     }
 
     @Id
@@ -28,6 +29,8 @@ public class User {
 
     private String password;
 
+    @OneToMany(targetEntity = Role.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Role> roles;
 
 
 }

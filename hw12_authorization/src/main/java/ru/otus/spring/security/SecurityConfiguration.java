@@ -2,11 +2,9 @@ package ru.otus.spring.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,10 +27,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
             throws Exception {
 
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/css/**").permitAll() //Adding this line solved it
                 .antMatchers("/login").anonymous()
-                .antMatchers(HttpMethod.DELETE, "/api/books/*").hasRole( "ADMIN" )
+                .antMatchers(HttpMethod.DELETE, "/api/books/*").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -47,13 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 
     @Autowired
     public void configure( AuthenticationManagerBuilder auth ) throws Exception {
-
-        auth.inMemoryAuthentication()
-                .withUser("admin").password("password").roles("ADMIN");
-
-//    auth.userDetailsService(userDetailsService);
-//        System.out.println("auth"+auth.getDefaultUserDetailsService().loadUserByUsername("admin").getAuthorities());
-
+        auth.userDetailsService(userDetailsService);
 
     }
 }
