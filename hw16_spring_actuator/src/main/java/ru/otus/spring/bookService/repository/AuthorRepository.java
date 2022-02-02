@@ -7,7 +7,6 @@ import ru.otus.spring.domain.book.Author;
 @RepositoryRestResource()
 public interface AuthorRepository extends CrudRepository<Author, Long> {
 
-//    List<Author> findAll();
 
 
 }

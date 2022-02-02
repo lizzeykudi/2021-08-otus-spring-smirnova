@@ -6,6 +6,5 @@ import ru.otus.spring.domain.book.Comment;
 
 @RepositoryRestResource()
 public interface CommentRepository extends CrudRepository<Comment, Long> {
-//    List<Comment> findAll();
 
 }

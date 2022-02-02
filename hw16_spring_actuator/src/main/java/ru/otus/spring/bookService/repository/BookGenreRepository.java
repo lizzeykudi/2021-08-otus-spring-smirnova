@@ -7,7 +7,6 @@ import ru.otus.spring.domain.book.BookGenre;
 @RepositoryRestResource()
 public interface BookGenreRepository extends CrudRepository<BookGenre, Long> {
 
-//    List<BookGenre> findAll();
 
 
 }

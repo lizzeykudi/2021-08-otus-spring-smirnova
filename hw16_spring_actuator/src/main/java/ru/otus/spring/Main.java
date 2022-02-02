@@ -2,7 +2,10 @@ package ru.otus.spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import ru.otus.spring.bookService.BookService;
+import ru.otus.spring.bookService.repository.AuthorRepository;
+import ru.otus.spring.bookService.repository.BookGenreRepository;
+import ru.otus.spring.domain.book.Author;
+import ru.otus.spring.domain.book.BookGenre;
 import ru.otus.spring.domain.user.Role;
 import ru.otus.spring.domain.user.User;
 import ru.otus.spring.userService.UserService;
@@ -17,19 +20,23 @@ public class Main {
         SpringApplication.run(Main.class);
     }
 
-    private final BookService bookService;
     private final UserService userService;
+    private final BookGenreRepository bookGenreRepository;
+    private final AuthorRepository authorRepository;
 
-    public Main(BookService bookService, UserService userService) {
-        this.bookService = bookService;
+    public Main(UserService userService, BookGenreRepository bookGenreRepository, AuthorRepository authorRepository) {
         this.userService = userService;
+        this.bookGenreRepository = bookGenreRepository;
+        this.authorRepository = authorRepository;
     }
 
     @PostConstruct
     public void init() {
 
-        bookService.insert("Thinking in Java", "Bruce Eckel", "Java");
-        bookService.insert("Spring in Action", "Craig Walls", "Spring");
+        bookGenreRepository.save(new BookGenre("Java"));
+        bookGenreRepository.save(new BookGenre("Spring"));
+        authorRepository.save(new Author("Bruce Eckel"));
+        authorRepository.save(new Author("Craig Walls"));
 
         userService.insert(new User("login", "password", Arrays.asList(new Role("ADMIN"))));
     }

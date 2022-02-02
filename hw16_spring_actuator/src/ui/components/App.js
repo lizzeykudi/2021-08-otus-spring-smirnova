@@ -262,14 +262,12 @@ export default class App extends React.Component {
         fetch('/authors')
             .then(response => response.json())
             .then(authors => this.setState({authors: authors._embedded.authors}))
-            .then(() => console.log(this.state));
     }
 
     refreshBookGenres() {
         fetch('/bookGenres')
             .then(response => response.json())
             .then(authors => this.setState({bookGenres: authors._embedded.bookGenres}))
-            .then(() => console.log(this.state));
     }
 
     resetBook() {
