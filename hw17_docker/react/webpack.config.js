@@ -5,7 +5,7 @@ const webpack = require('webpack');
 module.exports = {
     entry: './src/ui/index.js',
     output: {
-        path: path.resolve(__dirname, 'target/classes/public/'),
+        path: path.resolve(__dirname, 'build/'),
         filename: 'bundle.min.js',
         libraryTarget: 'umd'
     },
