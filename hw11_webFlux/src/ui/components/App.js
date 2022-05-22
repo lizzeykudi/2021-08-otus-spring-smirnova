@@ -7,19 +7,19 @@ export default class App extends React.Component {
 
     constructor() {
         super();
-        this.defaultBook = {title: "", authorId: -1, bookGenreId: -1};
+        this.defaultBook = {title: "", authorId: '', bookGenreId: ''};
         this.state = {
             books: [],
             authors: [],
             bookGenres: [],
             newBookTitle: '',
-            newBookAuthorId: -1,
-            newBookGenreId: -1,
+            newBookAuthorId: '',
+            newBookGenreId: '',
             editBookTitle: '',
-            editBookAuthorId: -1,
-            editBookGenreId: -1,
+            editBookAuthorId: '',
+            editBookGenreId: '',
             warningVisible: false,
-            editBook: -1
+            editBook: ''
         };
 
         this.setBookTitle = this.setBookTitle.bind(this);
@@ -63,7 +63,7 @@ export default class App extends React.Component {
                                             onChange={this.editBookAuthor}>
                                         {this.state.authors.map((author, i) => (
                                             <option value={author.id}>{author.name}</option>))}
-                                        <option value={-1}></option>
+                                        <option value={''}></option>
                                     </select>
                                 </td>
                                 <td>
@@ -71,7 +71,7 @@ export default class App extends React.Component {
                                             onChange={this.editBookGenre}>
                                         {this.state.bookGenres.map((bookGenre, i) => (
                                             <option value={bookGenre.id}>{bookGenre.title}</option>))}
-                                        <option value={-1}></option>
+                                        <option value={''}></option>
                                     </select>
                                 </td>
                                 <td>
@@ -101,7 +101,7 @@ export default class App extends React.Component {
                                 onChange={this.setBookAuthor}>
                             {this.state.authors.map((author, i) => (
                                 <option value={author.id}>{author.name}</option>))}
-                            <option value={-1}></option>
+                            <option value={''}></option>
                         </select>
                     </td>
                     <td>
@@ -109,7 +109,7 @@ export default class App extends React.Component {
                                 onChange={this.setBookGenre}>
                             {this.state.bookGenres.map((bookGenre, i) => (
                                 <option value={bookGenre.id}>{bookGenre.title}</option>))}
-                            <option value={-1}></option>
+                            <option value={''}></option>
                         </select>
                     </td>
                 </tr>
@@ -146,15 +146,15 @@ export default class App extends React.Component {
     }
 
     saveBook() {
-        if (this.state.newBookTitle === '' || this.state.newBookAuthorId === -1 || this.state.newBookGenreId === -1) {
+        if (this.state.newBookTitle === '' || this.state.newBookAuthorId === '' || this.state.newBookGenreId === '') {
             this.setState({warningVisible: true})
             return;
         } else {
             this.setState({warningVisible: false})
             const newBook = {
                 title: this.state.newBookTitle,
-                authorId: Number(this.state.newBookAuthorId),
-                bookGenreId: Number(this.state.newBookGenreId)
+                authorId: this.state.newBookAuthorId,
+                bookGenreId: this.state.newBookGenreId
             }
             fetch(`/api/books`, {
                 method: 'POST', headers: {
@@ -168,14 +168,14 @@ export default class App extends React.Component {
     }
 
     saveEditedBook() {
-        if (this.state.editBookTitle === '' || this.state.editBookAuthorId === -1 || this.state.editBookGenreId === -1) {
+        if (this.state.editBookTitle === '' || this.state.editBookAuthorId === '' || this.state.editBookGenreId === '') {
             this.setState({warningVisible: true})
         } else {
             this.setState({warningVisible: false})
             const editBook = {
                 title: this.state.editBookTitle,
-                authorId: Number(this.state.editBookAuthorId),
-                bookGenreId: Number(this.state.editBookGenreId)
+                authorId: this.state.editBookAuthorId,
+                bookGenreId: this.state.editBookGenreId
             }
             fetch(`/api/books/`+this.state.books[this.state.editBook].id, {
                 method: 'PUT', headers: {
@@ -184,7 +184,7 @@ export default class App extends React.Component {
             }).then((result) => {
                 this.refreshBooks();
                 this.resetBook();
-                this.setState({editBook: -1})
+                this.setState({editBook: ''})
             });
         }
     }

@@ -1,7 +1,6 @@
 package ru.otus.spring.bookService;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import ru.otus.spring.bookService.repository.AuthorRepository;
@@ -41,33 +40,36 @@ public class DefaultBookService implements BookService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Mono<Book> getById(String id) {
         return bookRepository.findById(id);
     }
 
     @Override
-    @Transactional
     public Mono<Book> update(BookDto bookDto) {
         Mono<Author> author = authorRepository.findById(bookDto.getAuthorId());
         Mono<BookGenre> bookGenre = bookGenreRepository.findById(bookDto.getBookGenreId());
         Mono<Book> book = bookRepository.findById(bookDto.getId());
-        Mono<Book> toSave = Mono.zip(book, author, bookGenre)
-                .map(data -> {
+        return Mono.zip(book, author, bookGenre)
+                .flatMap(data -> {
                     Book updatedBook = data.getT1();
                     updatedBook.setTitle(bookDto.getTitle());
                     updatedBook.setAuthor(data.getT2());
                     updatedBook.setBookGenre(data.getT3());
-                    return updatedBook;
+                    return bookRepository.save(updatedBook);
                 });
-
-        return bookRepository.save(toSave);
     }
 
     @Override
-    @Transactional
-    public void delete(String id) {
-        bookRepository.deleteById(id);
+    public Mono<Book> create(BookDto bookDto) {
+        Mono<Author> author = authorRepository.findById(bookDto.getAuthorId());
+        Mono<BookGenre> bookGenre = bookGenreRepository.findById(bookDto.getBookGenreId());
+        return Mono.zip(author, bookGenre)
+                .flatMap(data -> bookRepository.save(new Book(bookDto.getTitle(), data.getT1(), data.getT2())));
+    }
+
+    @Override
+    public Mono<Void> delete(String id) {
+        return bookRepository.deleteById(id);
     }
 
 }

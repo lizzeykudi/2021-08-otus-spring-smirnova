@@ -49,7 +49,7 @@ public class BookController {
     @PostMapping("/api/books")
     public Mono<Book> addBook(@RequestBody BookDto bookDto) {
         log.info("Request to create book: {}", bookDto);
-        return bookService.update(bookDto);
+        return bookService.create(bookDto);
     }
 
     @PutMapping("/api/books/{id}")
@@ -60,9 +60,9 @@ public class BookController {
     }
 
     @DeleteMapping("/api/books/{id}")
-    public void deleteBook(@PathVariable String id) {
+    public Mono<Void> deleteBook(@PathVariable String id) {
         log.info("Request to delete bookId: {}", id);
-        bookService.delete(id);
+        return bookService.delete(id);
     }
 
 }
